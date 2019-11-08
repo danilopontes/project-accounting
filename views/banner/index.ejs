@@ -1,0 +1,152 @@
+<% include ../templates/header %>
+
+<div class="row layoutRow">
+    <div class="container">
+        <div id="layoutPath" class="col-md-12">
+            <ul>
+                <li class="layoutPathItem"><a href="/">Home</a></li>
+                <li class="layoutPathItem before">Banner</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="listaItems" class="container">
+
+    <div id="listaItemsHeader" class="row">
+        <div class="col-xs-8 ">
+            <h3>Lista de Banners</h3>
+        </div>
+        <div class="col-xs-4">
+            <% if(currentUser) { %>
+            <a class="btn btn-primary pull-right" href="/banner/new">Novo Banner</a>
+            <% } %>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12 ">
+            <span id="teste"></span>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td style="width: 150px;">Imagem</td>
+                        <td>Titulo</td>
+                        <td>Ordem</td>
+                        
+                    </tr>
+                </thead>
+                <tbody id="tbody">    
+            
+                    <% banners.forEach(function(banner) { %>
+                    
+                        <% var title = banner.title; %>
+                        <% var id = banner._id; %>
+                        <% var url = banner.image; %>
+                        <% var status = (banner.status == true ? "success" : "danger") %>
+                        
+                        <tr class="<%= status %>">
+                                <td style="padding: 0;" ><div style="background-image: url(<%= url %>); background-position: center; background-size: cover; height: 70px;"></div></td>
+                                <td style="vertical-align: middle;"><a href="/banner/<%= id %>/edit"><p><%= title %></p></a></td>
+                                <td style="vertical-align: middle; text-align: center;">
+                                
+                                    <form style="display: inline-block;" class="order" action="/banner/<%= id %>/order" method="POST">
+                                        <div style="text-align: center;">
+                                            <input type="hidden" name="submit" value="up"></input>
+                                            <button type="submit" class="btn btn-xs btn-default glyphicon glyphicon-chevron-up"></button>
+                                        </div>
+                                    </form>
+                                    <form style="display: inline-block;" class="order" action="/banner/<%= id %>/order" method="POST">
+                                        <div style="text-align: center;">
+                                            <input type="hidden" name="submit" value="down"></input>
+                                            <button type="submit" class="btn btn-xs btn-default glyphicon glyphicon-chevron-down"></button>
+                                        </div>
+                                    </form>
+
+                                </td>
+                        </tr>
+                    
+                    <% }); %>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<% include ../templates/footer %>
+
+<script type="text/javascript">
+
+  
+        $(document).on('submit', ".order", function (e){
+            
+            $form = $(this);
+            // console.log($form);
+            // console.log($form.attr('action'));
+            var url = $form.attr('action');
+            var formData = new FormData(this);
+            // console.log(formData);
+            
+            $.ajax({
+                url: url,
+                type: 'PUT',
+                cache: false,
+                data: formData,
+                
+                success: function(data){
+                // console.log("...");
+                // console.log(data);
+                    
+                var obj = JSON.parse(data);
+                var text = "";
+                    
+                obj.forEach(function(banner){
+                
+                    var title = banner.title;
+                    var id = banner._id;
+                    var url = banner.image;
+                    var status = (banner.status == true ? "success" : "danger");
+                    
+                    
+                    // console.log(JSON.parse(data));
+                    
+                    text = text + "<tr class="+status+">\
+                                    <td style='padding: 0;'><div style='background-image: url("+url+"); background-position: center; background-size: cover; height: 70px;'></div></td>\
+                                    <td style='vertical-align: middle;'><a href='/banner/"+id+"/edit'><p>"+title+"</p></a></td>\
+                                    <td style='vertical-align: middle; text-align: center;'>\
+                                        <form style='display: inline-block;' class='order' action='/banner/"+id+"/order' method='POST'>\
+                                            <div style='text-align: center;'>\
+                                                <input type='hidden' name='submit' value='up'></input>\
+                                                <button type='submit' class='btn btn-xs btn-default glyphicon glyphicon-chevron-up'></button>\
+                                            </div>\
+                                        </form>\
+                                        <form style='display: inline-block;' class='order' action='/banner/"+id+"/order' method='POST'>\
+                                            <div style='text-align: center;'>\
+                                                <input type='hidden' name='submit' value='down'></input>\
+                                                <button type='submit' class='btn btn-xs btn-default glyphicon glyphicon-chevron-down'></button>\
+                                            </div>\
+                                        </form>\
+                                    </td>\
+                                   </tr>";
+                    
+                    
+                    
+                });
+                    
+                $("#tbody").empty().html(text);
+                   
+    
+                },
+                error: function(data){
+                    console.log(data);
+                },
+                processData: false,
+                contentType: false,
+    
+            });
+    
+            e.preventDefault();
+        });            
+
+</script>

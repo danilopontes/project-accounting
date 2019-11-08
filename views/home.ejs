@@ -1,0 +1,909 @@
+<% include templates/header %>
+
+<!-- SLIDER -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+        <% data.Banners.forEach(function(banner, i) { %>
+        <% if(i == 0) { var item = "active"; } %>
+
+        <% if(banner.status) { %>
+
+        <div class="<%= item %> item" style="background-image: url(<%= banner.image %>); background-position: center;">
+
+            <% if(currentUser) { %>
+            <div>
+                <a href="/banner">
+                    <button type="button" class="btn btn-primary btn-circle">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </button>
+                </a>
+            </div>
+            <% } %>
+
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1><%= banner.title %></h1>
+                    <p class="lead"><%= banner.description %></p>
+                    <% if(banner.button == true) { %>
+                    <a class="btn btn-default" href="<%= banner.buttonUrl %>">Learn more</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <% } %>
+
+        <% }); %>
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div id="firstToSecond"></div>
+
+<section id="secondSection">
+    <div class="container">
+        <div class="row">
+            <div class="noticias col-md-5">
+
+                <h4 class="title"><span class="glyphicon glyphicon-list-alt"></span> Latest News</h4>
+                <table id="tabelaNoticia">
+                    <tbody>
+
+                        <% data.News.forEach(function(news) { %>
+
+                        <% var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]; %>
+                        <% var title = news.title; %>
+                        <% var mes = monthNames[news.date.getMonth()]; %>
+                        <% var id = news._id; %>
+
+                        <tr>
+                            <td class="data">
+                                <h5 id="dia" class="noticiaDataDia"><%= news.date.getDate()%></h5>
+                                <h6 id="mes" class="noticiaDataMes"><%= mes %></h6>
+                            </td>
+                            <td class="title"><a href="/noticias/<%= id %>">
+                                    <p><%= title %></p>
+                                </a></td>
+                        </tr>
+
+                        <% }); %>
+
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <a class="secondSectionBtn btn btn-sm btn-danger" href="/noticias">View all</a>
+                </div>
+            </div>
+
+            <div class="agenda col-md-4">
+
+                <h4 class="title"><span class="glyphicon glyphicon-calendar"></span> Accounting Calendar</h4>
+                <div class="agendaContent">
+                    <div class="month">
+                        <ul>
+                            <form class="changemonth" action="/agenda/changemonth" method="POST" autocomplete="off">
+                                <li class="prev">
+                                    <input id='prevMonth' type='hidden' name='changemonth'
+                                        value='<%= date.getMonth()-1; %>-<%= date.getFullYear(); %>'/>
+                                    <button type='submit' class='btn btn-danger'>&#10094;</button>
+                                </li>
+                            </form>
+
+                            <form class="changemonth" action="/agenda/changemonth" method="POST" autocomplete="off">
+                                <li class="next">
+                                    <input id='nextMonth' type='hidden' name='changemonth'
+                                        value='<%= date.getMonth()+1; %>-<%= date.getFullYear(); %>'/>
+                                    <button type='submit' class='btn btn-danger'>&#10095;</button>
+                                </li>
+                            </form>
+
+                            <li>
+                                <% var monthNamesFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; %>
+                                <span id="monthHeader"><%= monthNamesFull[date.getMonth()] %></span>
+
+                                <br>
+                                <span id="yearHeader" style="font-size:18px"><%= date.getFullYear(); %></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <% var k = []; %>
+                    <% var f = {}; %>
+                    <% data.Calendar.forEach(function(calendar, i) { %>
+
+                    <% var year = calendar.date.getUTCFullYear(); %>
+                    <% var  month = calendar.date.getUTCMonth()+1; %>
+                    <% var  day = calendar.date.getUTCDate(); %>
+
+                    <% if (day < 10) {
+                            day = '0' + day;
+                            }
+                            if (month < 10) {
+                            month = '0' + month;
+                            }
+                        %>
+
+                    <% k.push(calendar.date.getUTCDate()); %>
+                    <% f[calendar.date.getUTCDate()] = year+ '-' + month + '-' +day; %>
+
+                    <% }); %>
+
+
+                    <ul class="weekdays">
+                        <li>S</li>
+                        <li>T</li>
+                        <li>Q</li>
+                        <li>Q</li>
+                        <li>S</li>
+                        <li>S</li>
+                        <li>D</li>
+                    </ul>
+
+                    <ul class="days">
+                        <% for (i = 0; i < nodeCalendar[0]; i++) { %>
+                        <li></li>
+                        <% } %>
+
+                        <% var haveTask = 0; %>
+                        <% for (i = 0; i < nodeCalendar[1]; i++) { %>
+                        <% (k.indexOf(i+1) !== -1 ? haveTask++ : "")%>
+                        <li>
+                            <form class="getAgenda" action="/agenda/" method="POST">
+                                <%- (k.indexOf(i+1) !== -1 ? "<input type='hidden' name='agenda' value='"+f[i+1]+"'></input>": "") %>
+                                <%- (k.indexOf(i+1) !== -1 ? "<button type='submit' class='btn btn-danger'>": "") %>
+                                <%= i+1 %>
+                                <%- (k.indexOf(i+1) !== -1 ? "</button>": "") %>
+                            </form>
+                        </li>
+                        <% } %>
+                    </ul>
+
+                </div>
+                <div class="row">
+                    <div id="loadingContent">
+                        <div id="loadingBar" class="hidden"></div>
+                    </div>
+
+                    <form class="getAgenda" action="/agenda/" method="POST">
+                        <input id='monthButtonInput' type='hidden' name='agenda' value='<%= date.getMonth() %>-<%= date.getFullYear() %>'/>
+                        <button style="margin-top: 2px;" id='monthButton' type='submit'
+                            class='<%= (haveTask == 0? "hidden" : "") %>  secondSectionBtn btn btn-sm btn-danger'><%= monthNamesFull[date.getMonth()] %></button>
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="newsletter col-md-3">
+                <div class="newsletterContent">
+                    <h4 class="title"><span class="glyphicon glyphicon-envelope"></span> Receive our Newsletter</h4>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Name</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+
+                        <button type="submit" class="btn btn-danger btn-lg">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="secondToThird"></div>
+
+<section id="thirdSection">
+
+    <div class="container">
+
+        <div class="row">
+            <!--CONTEUDO DENTRO DOS BOTÕES-->
+            <div id="clientes" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h2>Customers</h2>
+                    <h4 class="marginTop30">Já são mais de 200 clientes satisfeitos</h4>
+                    <div class="row marginTop20">
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                        <div class="col-sm-3 col-xs-6 clientesItem"
+                            style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                        </div>
+                    </div>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                </div>
+
+            </div>
+
+            <div id="parceiros" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h3>Partners</h3>
+                    <div class="parceirosOuter">
+                        <div class="parceirosContainer">
+
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/parceiro_gbrasil.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/arvore2.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2015/lay/parceiros/suafranquia.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+                            <div class="parceirosItem"
+                                style="background-image: url('http://unicon.com.br/public/files/2016/lay/parceiros/acacci4.png');">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                    <a class="scrollLeft left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="scrollRight right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div id="empresa" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h3>Company</h3>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="marginTop30" style="text-align: center">About the company</p>
+                        </div>
+                    </div>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                </div>
+
+            </div>
+
+            <div id="servicos" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h2>Services</h2>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="marginTop20 col-md-6">
+                            <h3>Contábil</h3>
+
+                            <ul>
+                                <li>Escrituração contábil</li>
+                                <li>Elaboração de relatórios societários, fiscais e gerências.</li>
+                                <li>Declaração de Imposto de Renda Pessoa Jurídica e Física.</li>
+                                <li>Elaboração de demonstrativos Econômicos/Financeiros.</li>
+                            </ul>
+                        </div>
+                        <div class="marginTop20 col-md-6">
+                            <h3>Fiscal</h3>
+
+                            <ul>
+                                <li>Classificação e escrituração de todos os documentos fiscais.</li>
+                                <li>Apuração de impostos e contribuições sociais.</li>
+                                <li>Preparação e entrega de Documento de Informação da Apuração do ICMS.</li>
+                                <li>Elaboração e entrega da Declaração de Operação Tributária.</li>
+                                <li>Processo de Regime Especial, Restituição ou compensação de Créditos Tributários.
+                                </li>
+                                <li>Atendimento e acompanhamento nas fiscalizações.</li>
+                            </ul>
+                        </div>
+                        <div class="marginTop20 col-md-6">
+                            <h3>Pessoal</h3>
+
+                            <ul>
+                                <li>Registro dos Profissionais Contratados e rescisões.</li>
+                                <li>Elaboração de folha de pagamentos e seus encargos.</li>
+                                <li>Elaboração de Obrigações acessórias mensais e anuais.</li>
+                                <li>Elaboração de mapa de acompanhamento de concessão de férias.</li>
+                                <li>Acompanhamento de acordos, convenções/dissídios coletivos.</li>
+                                <li>Assessoria trabalhista e previdenciária no atendimento a fiscalização.</li>
+                                <li>Levantamentos para aposentadoria, auxílio doença, auxílio maternidade.</li>
+                            </ul>
+                        </div>
+                        <div class="marginTop20 col-md-6">
+                            <h3>Paralegal</h3>
+
+                            <ul>
+                                <li>Abertura/Legalização de empresas e filiais.</li>
+                                <li>Baixas e regularização de empresas.</li>
+                                <li>Solicitação de parcelamento de débito.</li>
+                                <li>Certidões Negativas no âmbito federal, municipal, estadual, Cartórios, etc.</li>
+                                <li>Cadastros de empresas.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                </div>
+
+            </div>
+
+            <div id="contrib" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h3>Contributions</h3>
+                    <p>Contributions details</p>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                </div>
+
+            </div>
+
+            <div id="gbrasil" class="menuItem col-md-12">
+
+                <div class="content">
+                    <h2>Gbrasil</h2>
+                    <h4>Grupo Brasil de Empresas de Contabilidade</h4>
+                    <div class="row">
+                        <a target="_blank" href="" class="marginTop20 marginBottom30 btn btn-default">Saiba mais sobre o
+                            Grupo</a>
+                    </div>
+
+                    <button id="back" class="changeContent btn btn-danger btn-sm">back</button>
+                </div>
+
+            </div>
+
+            <!--BOTÕES-->
+            <div class="menu">
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="clientes" class="changeContent" data-toggle="modal" data-target="#showClientes">
+                        <svg version="1.1" id="trophy" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                            style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <path class="svg-trophy-1"
+                                d="M456,32h-64V16c0-8.84-7.16-16-16-16H136c-8.84,0-16,7.16-16,16v16H56c-8.84,0-16,7.16-16,16v96l0,0
+                        	c0,44.184,35.816,80,80,80h2.24c9.016,50.032,45.184,90.856,93.76,105.84L208.64,416h94.72L296,329.84
+                        	c48.576-14.984,84.744-55.808,93.76-105.84H392c44.184,0,80-35.816,80-80l0,0V48C472,39.16,464.84,32,456,32z M120,96v96l0,0
+                        	c-26.512,0-48-21.488-48-48l0,0V64h48V96z M440,144L440,144c0,26.512-21.488,48-48,48l0,0V64h48V144z" />
+                            <path class="svg-trophy-2" d="M152,480h208c4.416,0,8,3.584,8,8v16c0,4.416-3.584,8-8,8H152c-4.416,0-8-3.584-8-8v-16
+                        	C144,483.584,147.584,480,152,480z" />
+                            <path class="svg-trophy-3"
+                                d="M352,432c0-8.84-7.16-16-16-16H176c-8.84,0-16,7.16-16,16v48h192V432z" />
+
+                            <rect class="svg-trophy-4" x="208" y="432" width="96" height="32" />
+                            <g>
+                                <path class="svg-trophy-5"
+                                    d="M424,48L424,48c-8.84,0-16-7.16-16-16h-16v32h48C440,55.16,432.84,48,424,48z" />
+                                <path class="svg-trophy-5"
+                                    d="M88,48L88,48c8.84,0,16-7.16,16-16h16v32H72C72,55.16,79.16,48,88,48z" />
+                            </g>
+                            <g>
+                                <path class="svg-trophy-6"
+                                    d="M136,0h240l0,0l0,0c0,8.84-7.16,16-16,16H152C143.16,16,136,8.84,136,0L136,0L136,0z" />
+                                <path class="svg-trophy-6" d="M159.12,148.4c-7.912,3.936-17.52,0.704-21.448-7.208c-1.096-2.208-1.672-4.648-1.672-7.112V48
+                        		c0-8.84-7.16-16-16-16v168L392,64V32L159.12,148.4z" />
+                                <path class="svg-trophy-6"
+                                    d="M136,264l256-128V80L120.96,215.52C122.864,232.488,127.968,248.936,136,264z" />
+                            </g>
+                            <path class="svg-trophy-7" d="M297.68,216c-0.592-0.064-1.168-0.256-1.68-0.56l-40-21.84l-40,21.84
+                        	c-1.432,0.936-3.288,0.936-4.72,0c-1.4-1.096-2.08-2.888-1.76-4.64l7.6-46.24l-32-32.72c-1.368-1.36-1.808-3.4-1.12-5.2
+                        	c0.496-1.664,1.888-2.904,3.6-3.2l44.4-6.72l20-42.08c0.712-1.576,2.272-2.608,4-2.64l0,0c1.728,0.032,3.288,1.064,4,2.64l20,42.08
+                        	l44.32,6.72c1.712,0.296,3.104,1.536,3.6,3.2c0.536,1.712,0.104,3.576-1.12,4.88l-32,32.72l7.52,46.24
+                        	c0.32,1.752-0.36,3.544-1.76,4.64C299.744,215.752,298.712,216.072,297.68,216z" />
+                            <g>
+                                <polygon class="svg-trophy-8" points="232.16,116.72 218.4,118.8 187.84,134.08 208.88,155.52 284.96,117.52 279.84,116.72 
+                        		268.96,93.52 235.12,110.48 	" />
+                                <path class="svg-trophy-8" d="M209.84,210.48c-0.32,1.752,0.36,3.544,1.76,4.64c1.432,0.936,3.288,0.936,4.72,0l40-21.84
+                        		l9.84,5.44l32-16l-3.12-18.88l32-32.72c1.032-1.248,1.392-2.92,0.96-4.48c-0.496-1.664-1.888-2.904-3.6-3.2l-14.64-2.24
+                        		l-92.88,46.4L209.84,210.48z" />
+                            </g>
+                            <polygon class="svg-trophy-1" points="376,88 376,144 392,136 392,80 " />
+
+                        </svg>
+                        <h4>Customers</h4>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="parceiros" class="changeContent">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.425 511.425"
+                            style="enable-background:new 0 0 511.425 511.425;" xml:space="preserve">
+                            <path class="svg-parceiros-1" d="M359.146,288.944l-11.733-8.533l5.333-5.333l-11.733-37.333l-68.267-54.4
+                        	c-8.533-6.4-19.2-8.533-28.8-5.333l-64,21.333l-37.333,85.333l8.533,6.4l0,0l123.733,84.267c6.4,4.267,16,3.2,21.333-4.267
+                        	c4.267-6.4,3.2-16-4.267-21.333l-10.667-7.467l17.067,11.733c6.4,4.267,16,3.2,21.333-4.267c4.267-6.4,3.2-16-4.267-21.333
+                        	l5.333,4.267c6.4,4.267,16,3.2,21.333-4.267c4.267-6.4,3.2-16-4.267-21.333l5.333,4.267c6.4,4.267,16,3.2,21.333-4.267
+                        	C368.746,302.811,366.613,293.211,359.146,288.944z" />
+                            <g>
+                                <path class="svg-parceiros-2"
+                                    d="M359.146,288.944c3.2,2.133,5.333,5.333,6.4,8.533l58.667-45.867l-52.267-66.133l-36.267,20.267
+                        		l-51.2-18.133c-5.333-2.133-11.733-1.067-16,3.2l-33.067,30.933c-3.2,3.2-5.333,7.467-4.267,11.733
+                        		c1.067,9.6,2.133,27.733,7.467,40.533c3.2,8.533,13.867,11.733,21.333,6.4l0,0c3.2-2.133,5.333-6.4,6.4-9.6
+                        		c2.133-7.467,6.4-21.333,2.133-30.933l2.133-2.133c2.133-3.2,6.4-3.2,9.6-1.067L359.146,288.944z" />
+                                <path class="svg-parceiros-2"
+                                    d="M198.08,299.611c5.333-7.467,2.133-18.133-6.4-21.333c-6.4-3.2-14.933-1.067-19.2,5.333
+                        		l-14.933,22.4c-4.267,6.4-3.2,16,4.267,20.267l0,0c7.467,5.333,17.067,3.2,21.333-4.267L198.08,299.611z" />
+                                <path class="svg-parceiros-2" d="M186.346,344.411L186.346,344.411c7.467,5.333,17.067,3.2,21.333-4.267l16-24.533l0,0l5.333-7.467
+                        		c4.267-6.4,3.2-16-3.2-21.333c-7.467-5.333-16-3.2-21.333,4.267l-5.333,8.533l0,0l-16,24.533
+                        		C177.813,330.544,179.946,339.077,186.346,344.411z" />
+                                <path class="svg-parceiros-2"
+                                    d="M242.88,310.277c-6.4-3.2-14.933-1.067-19.2,5.333l-17.067,25.6c-4.267,6.4-3.2,16,4.267,20.267l0,0
+                        		c7.467,5.333,17.067,3.2,21.333-4.267l17.067-25.6C253.546,325.211,250.346,314.544,242.88,310.277z" />
+                                <path class="svg-parceiros-2"
+                                    d="M257.813,341.211c-6.4-3.2-14.933-1.067-19.2,5.333l-7.467,11.733c-4.267,6.4-3.2,16,4.267,20.267
+                        		l0,0c7.467,5.333,17.067,3.2,21.333-4.267l7.467-11.733C268.48,356.144,266.346,345.477,257.813,341.211z" />
+                            </g>
+                            <rect class="svg-parceiros-3" x="101.015" y="174.744"
+                                transform="matrix(-0.9165 -0.4001 0.4001 -0.9165 159.6594 504.4221)" width="62.935"
+                                height="121.603" />
+                            <rect class="svg-parceiros-4" x="27.41" y="146.237"
+                                transform="matrix(-0.9165 -0.4001 0.4001 -0.9165 72.1937 468.6165)" width="115.203"
+                                height="161.071" />
+                            <circle style="fill:#344A5E;" cx="87.146" cy="287.877" r="10.667" />
+                            <rect class="svg-parceiros-3" x="347.073" y="174.797"
+                                transform="matrix(0.9165 -0.4001 0.4001 0.9165 -62.6435 171.1284)" width="62.935"
+                                height="121.603" />
+                            <rect class="svg-parceiros-4" x="368.811" y="146.375"
+                                transform="matrix(0.9165 -0.4001 0.4001 0.9165 -55.169 189.5558)" width="115.203"
+                                height="161.071" />
+                            <circle class="svg-parceiros-5" cx="424.213" cy="287.877" r="10.667" />
+
+                        </svg>
+                        <h4>Partners</h4>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="empresa" class="changeContent">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                            style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <path class="svg-empresa-1" d="M348.062,63.015c-30.523-23.631-61.046,23.631-91.569,0c0-17.723,0-35.446,0-53.169
+                        	c30.523,23.631,61.046-23.631,91.569,0C348.062,27.569,348.062,45.292,348.062,63.015z" />
+                            <path class="svg-empresa-2" d="M256.492,139.815c-5.908,0-9.846-3.938-9.846-9.846V9.846c0-5.908,3.938-9.846,9.846-9.846
+                        	c5.908,0,9.846,3.938,9.846,9.846v120.123C266.338,135.877,262.4,139.815,256.492,139.815z" />
+                            <rect class="svg-empresa-3" x="107.815" y="129.969" width="296.369" height="382.031" />
+                            <g>
+                                <rect x="144.246" y="166.4" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="234.831" y="166.4" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="324.431" y="166.4" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="144.246" y="253.046" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="234.831" y="253.046" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="324.431" y="253.046" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="144.246" y="338.708" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="234.831" y="338.708" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                                <rect x="324.431" y="338.708" style="fill:#F3F3F3;" width="44.308" height="44.308" />
+                            </g>
+                            <rect class="svg-empresa-4" x="196.431" y="416.492" width="60.062" height="95.508" />
+                            <rect class="svg-empresa-5" x="256.492" y="416.492" width="60.062" height="95.508" />
+
+                        </svg>
+                        <h4>Company</h4>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="servicos" class="changeContent">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 48 48" version="1.1" width="50px" height="50px">
+                            <g id="surface1">
+                                <path class="svg-serv-1"
+                                    d="M 25.601563 34.398438 C 25.699219 34 25.699219 33.5 25.699219 33 C 25.699219 32.5 25.699219 32.101563 25.601563 31.601563 L 28.398438 29.601563 C 28.699219 29.398438 28.800781 29 28.601563 28.699219 L 25.898438 24.101563 C 25.699219 23.800781 25.398438 23.699219 25.101563 23.800781 L 22 25.300781 C 21.300781 24.699219 20.5 24.300781 19.601563 23.898438 L 19.300781 20.5 C 19.300781 20.199219 19 19.898438 18.699219 19.898438 L 13.398438 19.898438 C 13.101563 19.898438 12.800781 20.199219 12.800781 20.5 L 12.398438 24 C 11.5 24.300781 10.800781 24.800781 10 25.398438 L 6.898438 24 C 6.601563 23.898438 6.199219 24 6.101563 24.300781 L 3.398438 28.898438 C 3.199219 29.199219 3.300781 29.601563 3.601563 29.800781 L 6.398438 31.800781 C 6.300781 32.199219 6.300781 32.699219 6.300781 33.199219 C 6.300781 33.699219 6.300781 34.101563 6.398438 34.601563 L 3.601563 36.601563 C 3.300781 36.800781 3.199219 37.199219 3.398438 37.5 L 6.101563 42.101563 C 6.300781 42.398438 6.601563 42.5 6.898438 42.398438 L 10 41 C 10.699219 41.601563 11.5 42 12.398438 42.398438 L 12.699219 45.800781 C 12.699219 46.101563 13 46.398438 13.300781 46.398438 L 18.601563 46.398438 C 18.898438 46.398438 19.199219 46.101563 19.199219 45.800781 L 19.5 42.398438 C 20.398438 42.101563 21.101563 41.601563 21.898438 41 L 25 42.398438 C 25.300781 42.5 25.699219 42.398438 25.800781 42.101563 L 28.5 37.5 C 28.699219 37.199219 28.601563 36.800781 28.300781 36.601563 Z M 16 38 C 13.199219 38 11 35.800781 11 33 C 11 30.199219 13.199219 28 16 28 C 18.800781 28 21 30.199219 21 33 C 21 35.800781 18.800781 38 16 38 Z " />
+                                <path class="svg-serv-2"
+                                    d="M 41.898438 15.300781 C 42 14.800781 42 14.398438 42 14 C 42 13.601563 42 13.199219 41.898438 12.699219 L 44.398438 10.898438 C 44.699219 10.699219 44.699219 10.398438 44.601563 10.101563 L 42.101563 5.800781 C 41.898438 5.5 41.601563 5.398438 41.300781 5.601563 L 38.398438 6.898438 C 37.699219 6.398438 37 6 36.199219 5.601563 L 35.898438 2.5 C 36 2.199219 35.800781 2 35.5 2 L 30.601563 2 C 30.300781 2 30 2.199219 30 2.5 L 29.699219 5.601563 C 28.898438 5.898438 28.199219 6.300781 27.5 6.898438 L 24.601563 5.601563 C 24.300781 5.5 24 5.601563 23.800781 5.800781 L 21.300781 10.101563 C 21.101563 10.398438 21.199219 10.699219 21.5 10.898438 L 24 12.699219 C 24 13.199219 24 13.601563 24 14 C 24 14.398438 24 14.800781 24.101563 15.300781 L 21.601563 17.101563 C 21.300781 17.300781 21.300781 17.601563 21.398438 17.898438 L 23.898438 22.199219 C 24.101563 22.5 24.398438 22.601563 24.699219 22.398438 L 27.601563 21.101563 C 28.300781 21.601563 29 22 29.800781 22.398438 L 30.101563 25.5 C 30.101563 25.800781 30.398438 26 30.699219 26 L 35.601563 26 C 35.898438 26 36.199219 25.800781 36.199219 25.5 L 36.5 22.398438 C 37.300781 22.101563 38 21.699219 38.699219 21.101563 L 41.601563 22.398438 C 41.898438 22.5 42.199219 22.398438 42.398438 22.199219 L 44.898438 17.898438 C 45.101563 17.601563 45 17.300781 44.699219 17.101563 Z M 33 19 C 30.199219 19 28 16.800781 28 14 C 28 11.199219 30.199219 9 33 9 C 35.800781 9 38 11.199219 38 14 C 38 16.800781 35.800781 19 33 19 Z " />
+                            </g>
+                        </svg>
+                        <h4>Services</h4>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="contrib" class="changeContent">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                            style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <g>
+                                <rect class="svg-contrib-1" x="252" y="82.759" width="8" height="346.48" />
+
+                                <rect class="svg-contrib-1" x="42.708" y="258.683"
+                                    transform="matrix(0.9156 -0.4022 0.4022 0.9156 -84.6751 122.0659)" width="411.298"
+                                    height="8" />
+
+                                <rect class="svg-contrib-1" x="257.777" y="56.288"
+                                    transform="matrix(0.4026 -0.9154 0.9154 0.4026 -83.3799 396.1066)" width="8"
+                                    height="411.289" />
+                            </g>
+                            <circle class="svg-contrib-2" cx="256" cy="255.999" r="98.768" />
+                            <path class="svg-contrib-3"
+                                d="M269.376,261.599v-8c13.048-7.384,17.64-23.952,10.256-37.008
+                            	c-7.384-13.048-23.952-17.64-37.008-10.256s-17.64,23.952-10.256,37.008c2.424,4.28,5.968,7.824,10.256,10.256v8
+                            	c-25.296,1.184-38.168,18.288-38.168,29.792v9.408h103.088v-9.44C307.544,279.879,294.68,262.775,269.376,261.599z" />
+                            <g>
+                                <path class="svg-contrib-4" d="M268,476.799v-7.2c11.72-6.624,15.848-21.496,9.216-33.216c-6.624-11.72-21.496-15.848-33.216-9.216
+                            		s-15.848,21.496-9.216,33.216c2.176,3.856,5.368,7.04,9.216,9.216v7.2c-22.72,1.064-34.272,16.424-34.272,26.752v8.448h92.552
+                            		v-8.48C302.28,493.191,290.728,477.831,268,476.799z" />
+                                <path class="svg-contrib-4"
+                                    d="M477.728,377.247v-7.2c11.72-6.624,15.848-21.496,9.216-33.216
+                            		c-6.624-11.72-21.496-15.848-33.216-9.216s-15.848,21.496-9.216,33.216c2.176,3.856,5.368,7.04,9.216,9.216v7.2
+                            		c-22.72,1.064-34.272,16.424-34.272,26.752v8.48H512v-8.48C512,393.671,500.448,378.311,477.728,377.247z" />
+                                <path class="svg-contrib-4"
+                                    d="M58.296,377.247v-7.2c11.72-6.624,15.848-21.496,9.216-33.216
+                            		c-6.624-11.72-21.496-15.848-33.216-9.216s-15.848,21.496-9.216,33.216c2.176,3.856,5.368,7.04,9.216,9.216v7.2
+                            		C11.552,378.311,0,393.671,0,403.999v8.48h92.568v-8.48C92.568,393.671,81.016,378.311,58.296,377.247z" />
+                                <path class="svg-contrib-4"
+                                    d="M477.728,152.295v-7.2c11.72-6.624,15.848-21.496,9.216-33.216
+                            		c-6.624-11.72-21.496-15.848-33.216-9.216s-15.848,21.496-9.216,33.216c2.176,3.856,5.368,7.04,9.216,9.216v7.2
+                            		c-22.72,1.064-34.272,16.424-34.272,26.752v8.48H512v-8.48C512,168.719,500.448,153.359,477.728,152.295z" />
+                                <path class="svg-contrib-4" d="M58.296,152.295v-7.2c11.72-6.624,15.848-21.496,9.216-33.216s-21.496-15.848-33.216-9.216
+                            		s-15.848,21.496-9.216,33.216c2.176,3.856,5.368,7.04,9.216,9.216v7.2C11.552,153.359,0,168.719,0,179.047v8.48h92.568v-8.48
+                            		C92.568,168.719,81.016,153.359,58.296,152.295z" />
+                                <path class="svg-contrib-4" d="M268,52.799v-7.2c11.72-6.624,15.848-21.496,9.216-33.216C270.592,0.663,255.72-3.465,244,3.167
+                            		s-15.848,21.496-9.216,33.216c2.176,3.848,5.36,7.04,9.216,9.216v7.2c-22.72,1.064-34.272,16.424-34.272,26.752v8.448h92.552v-8.48
+                            		C302.28,69.191,290.728,53.831,268,52.799z" />
+                            </g>
+                        </svg>
+                        <h4>Our Contributions</h4>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-md-4  hideme animate">
+                    <button id="gbrasil" class="changeContent">
+                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80.000000pt" height="60.000000pt"
+                            viewBox="0 0 118.000000 60.000000" preserveAspectRatio="xMidYMid meet">
+
+                            <desc>
+                                <span class="glyphicon glyphicon-road"></span>
+                            </desc>
+                            <g class="svg-div" transform="translate(0.000000,65.000000) scale(0.100000,-0.100000)"
+                                stroke="none">
+                                <path class="svg-yellow" d="M826 615 c-113 -40 -163 -191 -95 -289 39 -58 93 -86 164 -86 108 0
+                        185 72 193 179 10 145 -124 245 -262 196z m117 -16 c152 -42 170 -252 27 -321
+                        -121 -59 -251 26 -247 163 3 82 51 140 132 160 43 10 46 10 88 -2z" />
+                                <path class="svg-green" d="M355 303 c-143 -118 -271 -223 -285 -234 -25 -18 -17 -18 497 -19
+                        l522 0 3 85 c2 47 0 85 -4 85 -5 0 -8 -4 -8 -9 0 -16 -104 -61 -156 -67 -64
+                        -8 -146 15 -203 56 -84 61 -136 188 -114 273 7 23 11 43 10 44 -1 1 -119 -95
+                        -262 -214z m226 102 c2 -59 0 -52 36 -116 39 -69 109 -132 170 -153 65 -22
+                        161 -20 225 4 29 11 54 20 55 20 1 0 1 -17 0 -38 l-2 -37 -462 -3 c-267 -1
+                        -463 2 -463 7 0 5 17 21 37 36 21 16 47 36 58 46 11 10 49 42 84 71 36 29 105
+                        88 155 130 50 42 94 77 99 77 4 1 8 -19 8 -44z" />
+                            </g>
+                        </svg>
+                        <h4>GBrasil</h4>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div id="thirdToFourth"></div>
+
+<% include templates/footer %>
+
+
+
+<script type="text/javascript">
+    $(document).on('submit', ".getAgenda", function (e) {
+
+        $('#loadingBar').removeClass('hidden');
+        $(".calendar-content").empty();
+        $('.calendar-d').html("<i style='font-size: 0.8em;'>Click on Item to see the description</i>");
+
+        $form = $(this);
+        var url = $form.attr('action');
+        var valor = $form.children().attr('value');
+
+        var formData = new FormData(this);
+
+        $.ajax({
+
+            url: url,
+            type: 'POST',
+            cache: false,
+            data: formData,
+            beforeSend: function () {
+                console.log("loading");
+            },
+
+            success: function (data) {
+
+                var obj = JSON.parse(data);
+                var text;
+                var date;
+
+                obj.forEach(function (cal) {
+
+                    var title = cal.title;
+                    var desc = cal.description;
+                    var mes = new Date(cal.monthRef);
+                    var ano = mes.getFullYear();
+                    date = dat(cal.date);
+                    var id = cal._id;
+
+                    text = text + "<tr style='text-align: center;'>\
+                    <td style='width: 88px' class='noticiaTitulo'><p>" + date + "</p></td>\
+                    <td class='noticiaTitulo'><a href='' class='agendaModalItem'><p value='" + desc + "'>" + title + "</p></a></td>\
+                    <td style='width: 100px' class='noticiaTitulo'><p>" + dataMes(mes) + "/" + ano + "</p></td>\
+                    </tr>";
+
+                });
+                // VERIFY IF DATE IS SPECIFIC, OR REPREST A WHOLE MONTH.
+                if (valor.length <= 7) {
+                    $(".modal-title").empty().html("Agenda Contábil - " + date.substring(3, 10));
+                } else {
+                    $(".modal-title").empty().html("Agenda Contábil - " + date);
+                }
+
+                $(".calendar-content").html(text);
+                $("#modalAgenda").modal('show');
+                $('#loadingBar').addClass('hidden');
+
+
+            },
+            error: function (data) {
+                console.log(data);
+            },
+
+            processData: false,
+            contentType: false,
+
+        });
+
+        e.preventDefault();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('submit', ".changemonth", function (e) {
+
+        $("#loadingBar").removeClass('hidden');
+        console.log(this);
+
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+
+        $.ajax({
+
+            url: url,
+            type: 'POST',
+            cache: false,
+            data: formData,
+            beforeSend: function () {
+                console.log("loading");
+            },
+
+            success: function (data) {
+
+                var monthNamesFull = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+
+                var k = [];
+
+                var f = {};
+
+                var text = "";
+
+                var calDate = new Date(data.date);
+
+                var monthName = monthNamesFull[calDate.getUTCMonth()];
+
+                if (data.data.Calendar.length > 0) {
+
+                    var calendarDate;
+
+                    data.data.Calendar.forEach(function (calendar, i) {
+
+                        calendarDate = new Date(calendar.date);
+
+                        var year = calendarDate.getUTCFullYear();
+                        var month = calendarDate.getUTCMonth() + 1;
+                        var day = calendarDate.getUTCDate();
+
+                        if (day < 10) {
+                            day = '0' + day;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+
+                        k.push(calendarDate.getUTCDate());
+
+                        f[calendarDate.getUTCDate()] = year + '-' + month + '-' + day;
+
+                    });
+                }
+
+                for (i = 0; i < data.nodeCalendar[0]; i++) {
+                    text = text + "<li></li>"
+                }
+
+                for (i = 0; i < data.nodeCalendar[1]; i++) {
+                    text = text + "<li><form class='getAgenda' action='/agenda/' method='POST'>";
+                    if (k.indexOf(i + 1) !== -1) {
+                        text = text + "<input type='hidden' name='agenda' value='" + f[i + 1] + "'/>\
+                                        <button type='submit' class='btn btn-danger'>"
+                    }
+                    text = text + (i + 1)
+                    if (k.indexOf(i + 1) !== -1) {
+                        text = text + "</button>"
+                    }
+                    text = text + "</form></li>"
+
+                }
+
+
+                if (k.length == 0) {
+                    $("#monthButton").addClass("hidden");
+                } else {
+                    $("#monthButton").removeClass("hidden");
+                }
+
+                $("ul.days").empty().html(text);
+                $('#loadingBar').addClass('hidden');
+                $("#monthHeader").empty().html(monthName);
+                $("#monthButton").empty().html(monthName);
+                $("#yearHeader").empty().html(calDate.getUTCFullYear());
+                $("#monthButtonInput").val((calDate.getUTCMonth()) + "-" + calDate
+            .getUTCFullYear());
+                $("#prevMonth").val((calDate.getUTCMonth() - 1) + "-" + calDate.getUTCFullYear());
+                $("#nextMonth").val((calDate.getUTCMonth() + 1) + "-" + calDate.getUTCFullYear());
+            },
+            error: function (data) {
+                console.log(data);
+            },
+
+            processData: false,
+            contentType: false,
+
+
+        });
+
+        e.preventDefault();
+    });
+</script>
+
+<script>
+    $(document).on('click', ".agendaModalItem", function (e) {
+        console.log(e);
+        $('.calendar-d').empty().html($(e.target).attr('value'));
+        e.preventDefault();
+    });
+</script>
+
+<script>
+    $('.scrollLeft').mouseover(function (event) {
+
+        var maxscroll = $(".parceirosContainer").get(0).scrollWidth;
+        var speed = maxscroll * 2;
+
+        $(".parceirosContainer").animate({
+            scrollLeft: -maxscroll
+        }, speed, "linear");
+
+    });
+    $('.scrollRight').mouseover(function (event) {
+
+        var maxscroll = $(".parceirosContainer").get(0).scrollWidth;
+        var speed = maxscroll * 2;
+
+        $(".parceirosContainer").animate({
+            scrollLeft: maxscroll
+        }, speed, "linear");
+
+    });
+
+    $('.scrollLeft, .scrollRight').mouseout(function (event) {
+        $('.parceirosContainer').stop();
+
+    });
+</script>
+
+
+<script>
+    $(function () {
+        var curDown = false,
+            // curYPos = 0,
+            curXPos = 0;
+        var currentScroll = $('.parceirosContainer').scrollLeft();
+        $('.parceirosContainer').mousemove(function (m) {
+            if (curDown === true) {
+                // $(window).scrollTop($(window).scrollTop() + (curYPos - m.pageY));
+                $('.parceirosContainer').scrollLeft(currentScroll + ((curXPos - m.pageX) * 2));
+                console.log(curXPos + ":" + m.pageX);
+            }
+        });
+
+        $('.parceirosContainer').mousedown(function (m) {
+            curDown = true;
+            // curYPos = m.pageY;
+            curXPos = m.pageX;
+        });
+
+        $('.parceirosContainer').mouseup(function (m) {
+            curDown = false;
+            currentScroll = $('.parceirosContainer').scrollLeft();
+            // curXPos = curXPos - m.pageX;
+            console.log(curXPos + ":" + m.pageX);
+        });
+    });
+</script>

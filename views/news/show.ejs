@@ -1,0 +1,42 @@
+<% include ../templates/header %>
+
+<% var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]; %>
+<% var mes = monthNames[data.News.date.getMonth()]; %>
+<% var id = data.News._id; %>
+<% var title = data.News.title; %>
+<% var body = data.News.body; %>
+
+
+<div class="row layoutRow">
+    <div class="container">
+        <div id="layoutPath" class="col-md-12">
+            <ul>
+                <li class="layoutPathItem"><a href="/">Home</a></li>
+                <li class="layoutPathItem before"><a href="/noticias">Noticias</a></li>
+                <li class="layoutPathItem before"> <%= title %> </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row layoutRow">
+    <div class="container">
+        <div id="noticiaBody" class="col-md-12">
+            <h2><%= title %></h2>
+            <p><%- body %></p>
+        </div>
+        
+        <% if(currentUser){ %>
+           
+           <div class="col-sm-12">
+                <form id="delete-form" class="form-inline" action="/noticias/<%= id %>?_method=DELETE" method="POST" onsubmit="return confirm('Tem certeza que quer deletar esta notícia?');">
+                    <a href="/noticias/<%=id%>/edit"><div class="btn btn-warning">Editar Notícia</div></a>
+                    <button class="btn btn-danger" type="submit">Deletar Notícia</button>
+                </form>
+            </div>
+       
+        <% } %>
+    </div>
+</div>
+
+<% include ../templates/footer %>

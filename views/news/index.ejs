@@ -1,0 +1,46 @@
+<% include ../templates/header %>
+
+<div id="listaItems" class="container">
+    <div class="row layoutRow">
+            <div id="layoutPath" class="col-md-12">
+                <ul>
+                    <li class="layoutPathItem"><a href="/">Home</a></li>
+                    <li class="layoutPathItem before">Noticias</li>
+                </ul>
+            </div>
+    </div>
+
+    <div id="listaItemsHeader" class="row">
+        <div class="col-xs-4">
+            <h3>Todas Notícias</h3>
+        </div>
+        <div class="col-xs-8">
+            <% if(currentUser) { %>
+            <a class="btn btn-primary pull-right" href="/noticias/new">Nova Notícia</a>
+            <% } %>
+        </div>
+    </div>
+    <br>
+    
+    <table id="tabelaNoticia">
+        <tbody>    
+            
+        <% data.News.forEach(function(news) { %>
+            
+            <% var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]; %>
+            <% var title = news.title; %>
+            <% var mes = monthNames[news.date.getMonth()]; %>
+            <% var id = news._id; %>
+            
+            <tr>
+                    <td class="data" ><h5 id="dia" class="noticiaDataDia"><%= news.date.getDate()%></h5><h6 id="mes" class="noticiaDataMes"><%= mes %></h6></td>
+                    <td class="title"><a href="/noticias/<%= id %>"><p><%= title %></p></a></td>
+            </tr>
+            
+        <% }); %>
+        
+        </tbody>
+    </table>
+</div>
+
+<% include ../templates/footer %>

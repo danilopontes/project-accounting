@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="description" content="Descrição da unicon">
+    <meta name="keywords" content="Contabilidade,Contábil,Escritório,Empresa,Fiscal,Tributo,IR,Imposto de Renda">
+    <meta name="author" content="Rocky">    
+    
+    <title>Project Accounting</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="/css/summernote/summernote.css" rel="stylesheet"> 
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+ 
+    <link rel="stylesheet" href="/css/app.css">
+    
+    <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>
+    <script type='text/javascript' src="/js/css3-mediaqueries.js"></script>
+    
+    
+
+    <!--[if lt IE 9]>
+      <script type='text/javascript' src="/js/html5shiv.js"></script>
+      <script type='text/javascript' src="/js/respond.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.10';
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand" href="#">
+                    <img alt="Brand" src="/img/logo.png">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/">Contact</a></li>
+                    <li class="linkrestrito"><a target="_blank" href="https://www.dominioatendimento.com:82/login.html">Customer Login</a></li>
+                    <% if(currentUser){ %>
+                        <li><a href="/logout">Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="bottomNav" class="row">
+
+        <% if(currentUser){ %>
+            <a href="/"  class="bottomNav col-xs-6">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <h6>Home</h6>
+            </a>
+    
+            <a href="/logout"  class="bottomNav col-xs-6">
+    
+                <span class="fa fa-sign-out fa-2x" aria-hidden="true">
+                    
+                </span>
+                <h6>Logout</h6>
+    
+            </a>
+        <% } else { %>
+
+            <a href="/"  class="bottomNav col-xs-4">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <h6>Home</h6>
+            </a>
+    
+            <a href="/"  class="bottomNav col-xs-4">
+    
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                <h6>Contact</h6>
+    
+            </a>
+            <a href="https://www.dominioatendimento.com:82/login.html"  class="bottomNav col-xs-4">
+    
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                <h6>Customer Login</h6>
+    
+            </a>
+        <% } %>
+        
+    </div>
+    
+

@@ -1,0 +1,1101 @@
+/* #####################################################
+###################### RESETS ##########################
+######################################################*/
+
+body {
+    background-color: #f9f9f9;
+}
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    padding-right: 0;
+    padding-left: 0;
+}
+.marginTop20{
+    margin-top: 20px;
+}
+.marginTop30{
+    margin-top: 30px;
+}
+.marginBottom20{
+    margin-bottom: 20px;
+}
+.marginBottom30{
+    margin-bottom: 30px;
+}
+img {
+    border: 0;
+}
+a, u, button, button:focus, button:hover , a:focus, a:hover, u:hover{
+    outline:0 !important;
+    color: #777;
+}
+p {
+    margin: 0;
+    word-wrap: break-word;      /* IE 5.5-7 */
+    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+    white-space: pre-wrap;      /* current browsers */
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.table>tbody>tr>td{
+    padding: 3px;
+    vertical-align: middle;
+}
+.btn-danger{
+    background-color: #51232f;
+    border-radius: 3px;
+    border-color: #51232f;
+    box-shadow: 0 3px #210a0a;
+    border-width: 1px 1px 0px 1px;
+    transition: none !important;
+}
+.btn-danger:hover{
+    background-color: #712e3f;
+    border-color: #712e3f;
+}
+.btn-danger:focus:not(:hover){
+    background-color: #51232f;
+    border-color: #51232f;
+}
+.btn-danger:active {
+  background-color: #51232f;
+  border-color: #1a0b0f;
+  transform: translateY(3px);
+  box-shadow: none;
+  transition: none !important;
+}
+.btn {
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+}
+.row{
+    margin: 0;
+}
+.glyphicon{
+    font-size: 1em;
+}
+
+
+/* #####################################################
+######################### NAV ##########################
+######################################################*/
+.navbar.navbar-default {
+    margin-bottom: 0px;
+    background-color: white;
+    border-color: white;
+}
+.navbar-brand {
+  padding: 0px;
+  height: 80px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px;
+  width: auto;
+}
+.nav.navbar-nav {
+    margin: 20px 5px;
+}
+.navbar-nav li {
+    padding: 0 5px;
+}
+.navbar-default .navbar-nav .linkrestrito > a{
+    background-color: #484848;
+    color: white;
+}
+.navbar-nav>li>a {
+    background-color: white;
+    font-weight: bold;
+    padding: 0px 20px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #777;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+}
+.navbar-default .navbar-nav > li:hover a, .navbar-default .navbar-nav > li:focus a {
+    background-color: #777;
+    color: white;
+    border: 1px solid white;
+}
+.bottomNav{
+    display: none;
+}
+
+/* #####################################################
+####################### CAROUSEL #######################
+######################################################*/
+.carousel-inner, .carousel-inner .item {
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 600px;
+    max-height: 600px;
+}
+.carousel-caption{
+    position: absolute;
+    padding: 5px 20px 15px 20px;
+    right: 20px;
+    left: 20px;
+    bottom: 20px;
+    background-color: rgba(50,50,50, 0.5);
+}
+.carousel-caption p{
+    margin-bottom: 0;
+}
+.carousel-caption a{
+    margin-top: 40px;
+    font-weight: bold;
+}
+.carousel-control.left, .carousel-control.right{
+    width: 60px;
+    opacity: 0.6;
+    background-image: none;
+}
+.carousel-control:hover{
+    opacity: .5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8)
+}
+
+
+/* BOTÃO DE EDITAR BANNERS*/
+.btn-circle.btn {
+    margin-top: 30px;
+    width: 100px;
+    height: 50px;
+    padding: 12px;
+    font-size: 8px;
+    border-radius: 25px;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    margin-left: -50px;
+}
+.glyphicon-pencil{
+    font-size: 2.8em;
+}
+
+
+#firstToSecond{
+    height: 5px;
+    box-shadow: inset 0px 8px 5px -5px rgba(17,17,17,.3);
+}
+/* #############################################################
+######################### SECONDSECTION ########################
+##############################################################*/
+#secondSection {
+    height: 100%;
+    background-color: white;
+}
+#secondSection .noticias,#secondSection .agenda,#secondSection .newsletter{
+    padding: 20px 10px;
+}
+#secondSection .title {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #4F4E4E;
+}
+#secondSection .title > span {
+    font-size: 1.2em;
+    vertical-align: -2px;
+}
+
+/* ################################
+############ NOTICIAS #############
+#################################*/
+#tabelaNoticia {
+    padding: 0;
+    table-layout: fixed;
+    width: 100%;
+    height: 20px;
+    color: gray;
+}
+#tabelaNoticia tbody {
+    border: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+#tabelaNoticia tr:nth-child(even) {
+    background-color: #e9e9e9;
+}
+#tabelaNoticia tr td{
+    padding: 0px 15px;
+    list-style-type: none;
+    color: gray;
+}
+#tabelaNoticia .data {
+    background-color: #f9f9f9;
+    width: 60px;
+    border: 0px;
+    border-bottom: 1px solid white;
+}
+#tabelaNoticia .data #dia, #tabelaNoticia .data #mes {
+    background-color: #f9f9f9;
+    line-height: 10px;
+    margin: 0;
+    text-align: center;
+}
+#tabelaNoticia .data #dia{
+    padding-top: 10px;
+    font-weight: bold;
+}
+#tabelaNoticia .data #mes{
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+#tabelaNoticia .title {
+    border: 0px;
+    border-bottom: 1px solid white;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.secondSectionBtn {
+    margin-top: 7px;
+    float: right;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+}
+
+/* ###############################
+########### AGENDA  ##############
+#################################*/
+.agenda .title{
+    margin-left: 3px;
+}
+.agendaContent{
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+
+.month {
+    padding: 5px 25px;
+    width: 100%;
+    background: #51232f;
+    text-align: center;
+}
+/* Month list */
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    list-style-type: none;
+}
+/* Previous button inside month header */
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+/* Next button */
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color:#ddd;
+    font-size: 0;
+}
+.weekdays li {
+    display: inline-block;
+    width: 13.0%;
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    margin-left: 1%;
+}
+
+/* Days (1-31) */
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+    font-size: 0;
+    height: 169px;
+}
+.days li {
+    line-height: 20px;
+    list-style-type: none;
+    display: inline-block;
+    width: 13.0%;
+    margin-bottom: 5px;
+    font-size:12px;
+    color:#777;
+    text-align: center;
+    margin-left: 1%;
+}
+.days li .btn {
+    width: 100%;
+    padding: 0 0;
+}
+.days li .btn:active {
+    width: 100%;
+    padding: 0 12px;
+}
+
+#loadingContent{
+    height: 5px;
+    width: 100%;
+}
+#loadingBar {
+    top: 50%;
+    height: 5px;
+    width: 100%;
+    border-radius: 0px 0px 5px 5px;
+    opacity: 0.5;
+    background-image: -webkit-linear-gradient(-45deg, #51232f 25%, rgba(255, 154, 26, 0) 25%, rgba(255, 154, 26, 0) 50%, #51232f 50%, #51232f 75%, rgba(255, 154, 26, 0) 75%);
+    background-image: -moz-linear-gradient(-45deg, #51232f 25%, rgba(255, 154, 26, 0) 25%, rgba(255, 154, 26, 0) 50%, #51232f 50%, #51232f 75%, rgba(255, 154, 26, 0) 75%);
+    background-image: -o-linear-gradient(-45deg, #51232f 25%, rgba(255, 154, 26, 0) 25%, rgba(255, 154, 26, 0) 50%, #51232f 50%, #51232f 75%, rgba(255, 154, 26, 0) 75%);
+    background-image: linear-gradient(-45deg, #51232f 25%, rgba(255, 154, 26, 0) 25%, rgba(255, 154, 26, 0) 50%, #51232f 50%, #51232f 75%, rgba(255, 154, 26, 0) 75%);
+    background-color: #d3d3d3;
+    background-size: 50px 50px;
+    border: 1px solid #51232f;
+    border-bottom-color: #51232f;
+    -webkit-box-shadow: inset 0 10px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 10px 0 rgba(255, 255, 255, 0.2);
+    -webkit-animation: move 1s linear infinite;
+    -moz-animation: move 1s linear infinite;
+    -ms-animation: move 1s linear infinite;
+    animation: move 0.5s linear infinite;
+}
+@-moz-keyframes move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+@-ms-keyframes move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+@-webkit-keyframes move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+@keyframes move {
+    0%   { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+/* ################################
+########### NEWSLETTER ############
+#################################*/
+.newsletterContent {
+    height: 278px;
+    margin-top: 39px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    padding: 0px 10px 10px 10px;
+    background: #fff;
+    background: -webkit-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: -moz-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: -o-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+}
+.newsletterContent form{
+    padding-top: 18px;
+}
+.newsletterContent .btn {
+    width: 100%;
+}
+
+#secondToThird{
+    height: 5px;
+    box-shadow: inset 0px 8px 5px -5px rgba(17,17,17,.3);
+}
+/* #############################################################
+########################## THIRDSECTION ########################
+##############################################################*/
+#thirdSection{
+    margin: 50px 0;
+    height: 100%;
+}
+#thirdSection .col-md-4 {
+    padding: 10px;
+}
+.hideme {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.animate{
+    transition: all 1s linear;
+    -webkit-transition: all 1s linear;
+    -moz-transition: all 1s linear;
+    -ms-transition: all 1s linear;
+}
+#thirdSection .menu .changeContent{
+    width: 100%;
+    background: #fff;
+    background: -webkit-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: -moz-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: -o-linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    background: linear-gradient(#fff 0%, rgba(247, 246, 246, 0.1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+    height: 150px;
+    color: #4F4E4E;
+    border: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 30px 15px 15px 15px;
+    box-shadow: 0px 0px 2px 1px #f1f1f1;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+}    
+.changeContent svg{
+    height: 60px;
+    fill: #7A7A7A;
+}
+.menuItem {
+    display: none;
+    height: auto;
+    text-align: center;
+}
+.menuItem .changeContent{
+    margin-top: 20px;
+}
+
+#parceiros .parceirosOuter{
+    margin: 20px 60px 0 60px;
+    overflow: hidden;
+}
+#parceiros .parceirosContainer{
+    box-shadow: inset 0px 0 5px 0px rgba(0,0,0,0.2);
+    margin-bottom: -14px !important;
+    cursor: pointer;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: moz-none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;    
+    /* Make this scrollable when needed */
+    overflow-x: auto;
+    /* We don't want vertical scrolling */
+    overflow-y: hidden;
+    /* Make an auto-hiding scroller for the 3 people using a IE */
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    /* For WebKit implementations, provide inertia scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* We don't want internal inline elements to wrap */
+    white-space: nowrap;
+}
+#parceiros .parceirosContainer::-webkit-scrollbar{
+    display: none;
+}
+#parceiros .parceirosItem{
+    margin: 0 5%;
+    display: inline-flex;
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#clientes .clientesItem{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: inline-flex;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#servicos h3, #servicos ul{
+    text-align: left;
+}
+#servicos li:before{
+    content: "• ";
+}
+/*  CLIENTES */
+.svg-trophy-7, .svg-trophy-8{
+    fill: #999999;
+}
+#clientes:hover .svg-trophy-1{
+    fill:#FCD063;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-2{
+    fill:#82A7C4;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-3{
+    fill:#C9D5E3;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-4{
+    fill:#E2E7F0;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-5{
+    fill:#F6B545;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-6{
+    fill:#FFE27A;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-7{
+    fill:#E78825;
+    transition: all .3s ease;
+}
+#clientes:hover .svg-trophy-8{
+    fill:#F19920;
+    transition: all .3s ease;
+}
+
+/*  PARCEIROS */
+#parceiros .svg-parceiros-1{
+    fill: #999999;
+}
+#parceiros .svg-parceiros-3{
+    fill: #dbdbdb;
+}
+#parceiros:hover .svg-parceiros-1{
+    fill:#FFD15C;
+    transition: all .3s ease;
+}
+#parceiros:hover .svg-parceiros-2{
+    fill:#F7B64C;
+    transition: all .3s ease;
+}
+#parceiros:hover .svg-parceiros-3{
+    fill:#E8EAE9;
+    transition: all .3s ease;
+}
+#parceiros:hover .svg-parceiros-4{
+    fill:#415A6B;
+    transition: all .3s ease;
+}
+#parceiros:hover .svg-parceiros-5{
+    fill:#344A5E;
+    transition: all .3s ease;
+}
+
+/*  EMPRESA */
+.svg-empresa-4, .svg-empresa-5{
+    fill: #999999;
+}
+#empresa:hover .svg-empresa-1{
+    fill:#FFD15C;
+    transition: all .3s ease;
+}
+#empresa:hover .svg-empresa-2{
+    fill:#F5B54C;
+    transition: all .3s ease;
+}
+#empresa:hover .svg-empresa-3{
+    fill:#F26F5A;
+    transition: all .3s ease;
+}
+#empresa:hover .svg-empresa-4{
+    fill:#425A6B;
+    transition: all .3s ease;
+}
+#empresa:hover .svg-empresa-5{
+    fill:#344A5E;
+    transition: all .3s ease;
+}
+
+/*  SERVIÇOS */
+.svg-serv-1, .svg-serv-2{
+    fill: #999999;
+}
+#servicos:hover .svg-serv-1{
+    fill:#ae0001;
+    transition: all .3s ease;
+}
+#servicos:hover .svg-serv-2{
+    fill:#eeba30;
+    transition: all .3s ease;
+}
+
+/* CONTRIBUIÇÕES */
+#contrib .svg-contrib-3{
+    fill:#FFFFFF;
+    transition: all .3s ease;
+}
+#contrib:hover .svg-contrib-1{
+    fill:#C7D5DD;
+    transition: all .3s ease;
+}
+#contrib:hover .svg-contrib-2{
+    fill:#E04F5F;
+    transition: all .3s ease;
+}
+#contrib:hover .svg-contrib-4{
+    fill:#AAC1CE;
+    transition: all .3s ease;
+}
+
+/*  GBRASIL */
+#gbrasil .svg-green{
+    fill: #4F4E4E;
+    transition: all .3s ease;
+}
+#gbrasil:hover .svg-green{
+    fill: green;
+    transition: all .3s ease;
+}
+#gbrasil .svg-yellow{
+    fill: #4F4E4E;
+    transition: all .3s ease;
+}
+#gbrasil:hover .svg-yellow{
+    fill: #e4de10;
+    transition: all .3s ease;
+}
+
+
+
+#thirdToFourth{
+    height: 5px;
+    box-shadow: inset 0px -8px 5px -5px rgba(17,17,17,.3)
+}
+/* #####################################################
+###################### FOOTER ##########################
+######################################################*/
+#footer {
+    background-color: #51232f;
+    /*box-shadow: 0px -7px 5px -5px #9a9696;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2b131d+0,3a1923+28,51232f+100 */
+    background: #2b131d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #2b131d 0%, #3a1923 28%, #51232f 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #2b131d 0%,#3a1923 28%,#51232f 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #2b131d 0%,#3a1923 28%,#51232f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b131d', endColorstr='#51232f',GradientType=0 ); /* IE6-9 */
+
+}
+.social-block{
+    margin-top: 45px;
+    margin-bottom: 45px;
+    color: white;
+    text-align: center;
+}
+.social-block a{
+    color: white;
+}
+.social-block h4{
+    margin-top: 0;
+}
+#fb-block{
+    margin: 0 auto;
+    max-width: 500px;
+    border: 3px solid white;
+}
+#maps-block{
+    border: 3px solid white;
+    max-width: 500px
+}
+#copyrightRow{
+    height: 80px;
+    background-color: white;
+}
+#copyright {
+    text-align: center;
+    line-height: 80px;
+}
+#copyright img{
+    padding-right: 30px;
+    height: 40px;
+    margin: 20px 0;
+}
+
+
+/* #####################################################
+############### SINGLE PAGES LAYOUTS ###################
+######################################################*/
+
+/* ##############################
+####### BANNER/NEWS PAGE ########
+#################################*/
+
+
+/*  BANNER/NEWS LAYOUT ROW PATH PAGE LAYOUT */
+.layoutRow{
+    margin-bottom: 40px;
+}
+#layoutPath{
+    margin-top: 15px;
+    padding-left: 0;
+    border-bottom: 2px solid rgba(0,0,0,0.5);
+
+}
+.layoutPathItem{
+    display: inline;
+    line-height: 25px;
+}
+.layoutPathItem:first-child::before {
+    content: "";
+}
+.layoutPathItem:before {
+    content: " » ";
+    font-weight: 900;
+    line-height: 20px;
+    font-size: 15px;
+    color: #777;
+}
+
+/*  NOTICIAS/BANNER INDEX */ 
+#listaItems{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#listaItemsHeader h3{
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+/*  NOTICIAS/BANNER EDIT/NEW */ 
+#contentEdit{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* NOTICIAS SHOW*/
+#noticiaBody{
+    min-height: 500px;
+    margin-bottom: 10px;
+}
+#noticiaBody h2{
+    text-align: center;
+    margin-bottom: 50px;
+}
+#noticiaBody p{
+    text-align: left;
+}
+
+/* ##############################
+########## ADMIN PAGE ###########
+#################################*/
+#adminContainer{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 400px;
+}
+#adminContainer h1{
+    margin-bottom: 50px;
+}
+
+
+/* ##############################
+############ MODAL ##############
+#################################*/
+.modal-header{
+    background-color: #51232f;
+    color: white;
+}
+.modal-header .close{
+    color: white;
+}
+.fade-scale {
+  transform: scale(0);
+  opacity: 0;
+  -webkit-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+}
+.fade-scale.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* #####################################################################
+####################### MEDIA QUERIES SECTION ##########################
+######################################################################*/
+
+@media screen and (min-width: 768px){
+    .navbar-brand{
+        margin-left: 0 !important;
+    }
+    .carousel-caption {
+        right: 20px;
+        left: 20px;
+        bottom: 20px;
+        padding-bottom: 30px;
+    }
+}
+@media screen and (min-width: 1280px){
+    .carousel-caption {
+        right: 20%;
+        left: 20%;
+        padding-bottom: 30px;
+    }
+}
+@media(max-width: 991px){
+    .carousel-inner, .carousel-inner .item{
+        min-height: 450px;
+    }
+    .carousel-caption h1 {
+        font-size: 21px;
+    }
+    .carousel-caption .lead {
+        font-size: 16px;
+    }
+    .carousel-caption a {
+        margin-top: 20px;
+    }
+    .navbar > .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .newsletterContent{
+        margin-top: 0;
+    }
+    /*  CLIENTES */
+    #clientes .svg-trophy-1{
+        fill:#FCD063;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-2{
+        fill:#82A7C4;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-3{
+        fill:#C9D5E3;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-4{
+        fill:#E2E7F0;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-5{
+        fill:#F6B545;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-6{
+        fill:#FFE27A;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-7{
+        fill:#E78825;
+        transition: all .3s ease;
+    }
+    #clientes .svg-trophy-8{
+        fill:#F19920;
+        transition: all .3s ease;
+    }
+    
+    /*  PARCEIROS */
+    
+    #parceiros .svg-parceiros-3{
+        fill: #dbdbdb;
+    }
+    #parceiros .svg-parceiros-1{
+        fill:#FFD15C;
+        transition: all .3s ease;
+    }
+    #parceiros .svg-parceiros-2{
+        fill:#F7B64C;
+        transition: all .3s ease;
+    }
+    #parceiros .svg-parceiros-3{
+        fill:#E8EAE9;
+        transition: all .3s ease;
+    }
+    #parceiros .svg-parceiros-4{
+        fill:#415A6B;
+        transition: all .3s ease;
+    }
+    #parceiros .svg-parceiros-5{
+        fill:#344A5E;
+        transition: all .3s ease;
+    }
+    
+    
+    /*  EMPRESA */
+    #empresa .svg-empresa-1{
+        fill:#FFD15C;
+        transition: all .3s ease;
+    }
+    #empresa .svg-empresa-2{
+        fill:#F5B54C;
+        transition: all .3s ease;
+    }
+    #empresa .svg-empresa-3{
+        fill:#F26F5A;
+        transition: all .3s ease;
+    }
+    #empresa .svg-empresa-4{
+        fill:#425A6B;
+        transition: all .3s ease;
+    }
+    #empresa .svg-empresa-5{
+        fill:#344A5E;
+        transition: all .3s ease;
+    }
+    
+    
+    /*  SERVIÇOS */
+    #servicos .svg-serv-1{
+        fill:#ae0001;
+        transition: all .3s ease;
+    }
+    #servicos .svg-serv-2{
+        fill:#eeba30;
+        transition: all .3s ease;
+    }
+    
+    /* CONTRIBUIÇÕES */
+    #contrib .svg-contrib-1{
+        fill:#C7D5DD;
+        transition: all .3s ease;
+    }
+    #contrib .svg-contrib-2{
+        fill:#E04F5F;
+        transition: all .3s ease;
+    }
+    #contrib .svg-contrib-4{
+        fill:#AAC1CE;
+        transition: all .3s ease;
+    }
+    
+    
+    /*  GBRASIL */
+    #gbrasil .svg-green{
+        fill: green;
+        transition: all .3s ease;
+    }
+    
+    #gbrasil .svg-yellow{
+        fill: #4F4E4E;
+        transition: all .3s ease;
+    }
+    
+    #gbrasil .svg-yellow{
+        fill: #e4de10;
+        transition: all .3s ease;
+    }
+
+}
+@media (max-width: 886px) {
+    .navbar-brand{
+        width: 100%;
+    }
+    .navbar-brand img{
+        margin: 0 auto;
+    }
+
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    #bottomNav{
+        display: block;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 9999;
+        background-color: white;
+        text-align: center;
+        border-top: 1px solid rgba(0,0,0,0.2);
+    }
+    
+    .bottomNav{
+        height: 50px;
+        background-color: white;
+        color: #4F4E4E;
+        display: block;
+    }
+    .bottomNav h6{
+        margin-top: 0;
+    }
+    .bottomNav span{
+        margin-top: 10px;
+        font-size: 1em;
+    }
+
+}
+@media(max-width: 542px){
+    #tabelaNoticia .data{
+        padding: 0;
+        width: 40px;
+    }
+    
+    #copyright img{
+        display: none;
+    }
+    #copyright p{
+        font-size: .8em;
+    }
+    
+    #parceiros .scrollLeft, #parceiros .scrollRight{
+        display: none;
+    }
+    #parceiros .parceirosOuter{
+        border: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+@media(max-width: 400px){
+    .changeContent h4{
+        font-size: 14px;
+    }
+    .changeContent svg{
+        height: 50px;
+    }
+    .changeContent svg{
+        height: 50px;
+        width: 50px;
+    }
+}
+@media(max-width: 320px){
+    #tabelaNoticia .data{
+        padding: 0;
+        width: 30px;
+    }    
+    
+    .month{
+        padding: 5px 10px;
+    }
+    #monthHeader{
+        font-size: 15px;
+    }
+    li.prev .btn{
+        font-size: 10px;
+    }
+    li.next .btn{
+        font-size: 10px;
+    }
+}
