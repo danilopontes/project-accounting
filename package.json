@@ -13,7 +13,7 @@
     "body-parser": "^1.19.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
-    "express-fileupload": "^0.3.0",
+    "express-fileupload": "^1.1.9",
     "express-sanitizer": "^1.0.5",
     "express-session": "^1.17.0",
     "get-json": "^1.0.1",
