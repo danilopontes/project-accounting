@@ -9,7 +9,7 @@
   "author": "Danilo Pontes",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^2.6.4",
     "body-parser": "^1.19.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
